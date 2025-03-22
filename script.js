@@ -5,35 +5,35 @@ const todoListUL = document.getElementById('todo-list');
 let allTodos = getTodos();
 updateTodoList();
 
-todoForm.addEventListener('submit', function(e){
-  e.preventDefault();
-  addTodo();
+todoForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    addTodo();
 })
 
-function addTodo(){
+function addTodo() {
     const todoText = todoInput.value.trim();
-    if (todoText.length > 0) { 
-     const todoObject = {
-        text: todoText,
-        completed: false
-     }      
-    allTodos.push(todoObject);
-    updateTodoList();
-    saveTodos();
-    todoInput.value = "";
-     }
+    if (todoText.length > 0) {
+        const todoObject = {
+            text: todoText,
+            completed: false
+        }
+        allTodos.push(todoObject);
+        updateTodoList();
+        saveTodos();
+        todoInput.value = "";
+    }
 }
 
-function updateTodoList(){
+function updateTodoList() {
     todoListUL.innerHTML = "";
-    allTodos.forEach((todo, todoIndex) =>{
+    allTodos.forEach((todo, todoIndex) => {
         todoItem = createTodoItem(todo, todoIndex);
         todoListUL.append(todoItem);
     })
 }
 
-function createTodoItem(todo, todoIndex){
-    const todoId = "todo-"+todoIndex;
+function createTodoItem(todo, todoIndex) {
+    const todoId = "todo-" + todoIndex;
     const todoLI = document.createElement('li');
     const todoText = todo.text;
     todoLI.className = "todo";
@@ -53,11 +53,11 @@ function createTodoItem(todo, todoIndex){
         </button>
     `
     const deleteButton = todoLI.querySelector(".delete-button");
-    deleteButton.addEventListener("click", ()=>{
-       deleteTodoItem(todoIndex);
+    deleteButton.addEventListener("click", () => {
+        deleteTodoItem(todoIndex);
     })
     const checkbox = todoLI.querySelector("input");
-    checkbox.addEventListener("change", ()=>{
+    checkbox.addEventListener("change", () => {
         allTodos[todoIndex].completed = checkbox.checked;
         saveTodos();
     })
@@ -65,18 +65,43 @@ function createTodoItem(todo, todoIndex){
     return todoLI;
 }
 
-function deleteTodoItem(todoIndex){
-    allTodos = allTodos.filter((_, i)=> i !== todoIndex);
+function deleteTodoItem(todoIndex) {
+    allTodos = allTodos.filter((_, i) => i !== todoIndex);
     saveTodos();
     updateTodoList();
 }
 
-function saveTodos(){
+function saveTodos() {
     const todosJson = JSON.stringify(allTodos);
-   localStorage.setItem("todos", todosJson);
+    localStorage.setItem("todos", todosJson);
 }
 
-function getTodos(){
+function getTodos() {
     const todos = localStorage.getItem("todos") || "[]";
-    return JSON.parse(todos); 
+    return JSON.parse(todos);
 }
+
+//Start of dark/light mode code
+
+let lightmode = localStorage.getItem('lightmode');
+const themeSwitch = document.getElementById('theme-switch');
+
+const enableLightMode = () => {
+    document.body.classList.add('lightmode');
+    localStorage.setItem('lightmode', 'active');
+
+}
+
+const disableLightMode = () => {
+    document.body.classList.remove('lightmode');
+    localStorage.removeItem('lightmode', null);
+}
+
+if (lightmode === "active") {
+    enableLightMode();
+}
+
+themeSwitch.addEventListener('click', () => {
+    lightmode = localStorage.getItem('lightmode');
+    lightmode !== "active" ? enableLightMode() : disableLightMode()
+})
