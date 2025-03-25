@@ -8,10 +8,10 @@
 }
 
 .lightmode {
-    --background: #F9F9F9;
-    --primary-color: #d8d6d6;
+    --background: #d5d4d4;
+    --primary-color: #689c84;
     --secondary-color: #B1B1B1;
-    --accent-color: #00FFC4;
+    --accent-color: #25cea7;
     --text-color: #101114;
 }
 
@@ -84,6 +84,7 @@ h1 {
     gap: 10px;
 }
 
+
 #todo-input {
     box-sizing: border-box;
     width: 100%;
@@ -129,11 +130,19 @@ form {
     margin-bottom: 10px;
 }
 
+.todo .lightmode {
+    background-color: var(--primay-color);
+}
+
 .todo .todo-text {
     padding: 15px;
     padding-right: 0;
     flex-grow: 1;
     transition: 200ms ease;
+}
+
+.lightmode .todo .todo-text {
+    color: rgb(33, 33, 33);
 }
 
 .delete-button {
