@@ -107,3 +107,24 @@ themeSwitch.addEventListener('click', () => {
     lightmode = localStorage.getItem('lightmode');
     lightmode !== "active" ? enableLightMode() : disableLightMode()
 })
+//end of dark/light mode code
+
+//start of header and burger menu
+
+const burger = document.getElementById('burger');
+const close = document.getElementById('close');
+const navLinks = document.getElementById('nav-links');
+
+burger.addEventListener('click', () => {
+    navLinks.classList.add('active');
+    burger.classList.add('active');
+    close.classList.add('active');
+});
+
+close.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    burger.classList.remove('active');
+    close.classList.remove('active');
+});
+
+//end of header and burger menu
